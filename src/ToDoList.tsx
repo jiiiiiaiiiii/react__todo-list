@@ -30,29 +30,53 @@ import { useForm } from 'react-hook-form';
 } */
 
 
+interface IForm {
+	email: string;
+	FirstName: string;
+	LastName: string;
+	UserName: string;
+	Password: string;
+	PasswordConfirm: string;
+}
+
 function ToDoList() {
-	const {register, handleSubmit, formState} = useForm();	// watch: input값의 변화
+	const {register, handleSubmit, formState: {errors}} = useForm<IForm>({
+		defaultValues: {
+			email: '@naver.com',
+		}
+	});
 	const onValid = (data: any) => {
 		console.log(data);
 	}
-	console.log(formState.errors); // 각 input의 유효성 error 확인
+	console.log(errors); // 각 input의 유효성 error 확인
 	
 	return (
 		<div>
 			<form style={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit(onValid)}>
-				<input {...register('Email', {required: true})} placeholder='Email' />
-				<input {...register('FirstName', {required: true})} placeholder='FirstName' />
-				<input {...register('LastName', {required: true})} placeholder='LastName' />
-				<input {...register('UserName', {required: true, minLength: 5})} placeholder='UserName' />
-				<input {...register('Password', {required: true, minLength: 10})} placeholder='Password' />
-				<input
-					{...register('PasswordConfirm', {
-						required: 'Password is required', 
-						minLength: {
-							value: 5,
-							message: 'Your password is too short'
-						},
-					})} placeholder='PasswordConfirm' />
+				<input {...register('email', {
+					required: 'Email is required', 
+					pattern: {
+						value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+						message: 'Only naver.com emails allowed'}
+					}
+				)} placeholder='Email' />
+				<span>{errors?.email?.message as string}</span>
+				<input {...register('FirstName', {required: 'required'})} placeholder='FirstName' />
+				<span>{errors?.FirstName?.message as string}</span>
+				<input {...register('LastName', {required: 'required'})} placeholder='LastName' />
+				<span>{errors?.LastName?.message as string}</span>
+				<input {...register('UserName', {required: 'required', minLength: 5})} placeholder='UserName' />
+				<span>{errors?.UserName?.message as string}</span>
+				<input {...register('Password', {required: 'required', minLength: 10})} placeholder='Password' />
+				<span>{errors?.Password?.message as string}</span>
+				<input {...register('PasswordConfirm', {
+					required: 'Password is required', 
+					minLength: {
+						value: 5,
+						message: 'Your password is too short'
+					},
+				})} placeholder='PasswordConfirm' />
+				<span>{errors?.PasswordConfirm?.message as string}</span>
 				<button>Add</button>
 			</form>
 		</div>
