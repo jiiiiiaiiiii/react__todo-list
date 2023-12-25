@@ -4,7 +4,8 @@ import CreateToDo from './CreateToDo';
 import ToDo from './ToDo';
 
 function ToDoList() {
-  const toDos = useRecoilValue(toDoState)
+  const toDos = useRecoilValue(toDoState);
+  console.log(toDos);  
 
   return (
     <div>
@@ -14,7 +15,6 @@ function ToDoList() {
       <ul>
         {toDos.map((toDo) => 
         <ToDo key={toDo.id} {...toDo} />)}
-        {/* <ToDo key={toDo.id} text={toDo.text} id={toDo.id} category={toDo.category} /> */}
       </ul>
     </div>
   );
