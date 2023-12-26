@@ -1,16 +1,20 @@
 import { atom, selector } from 'recoil';
-//✨selector: derived state(파생된 상태)
-// --> state를 가져다가(state는 변경❌) -> atom의 변경된 output⭕을 return)
+
+export enum Categories {
+  'TO_DO'= 'TO_DO', // 'TO_DO', 로 할 경우 -> 실제 값은 숫자 '0'임(인덱스값)
+  'DOING'= 'DOING',
+  'DONE' = 'DONE'
+}
 
 export interface IToDo {
   text: string;
   id: number;
-  category: 'TO_DO'|'DOING'|'DONE';
+  category: Categories;
 }
 
-export const categoryState = atom({
+export const categoryState = atom<Categories>({
   key: 'category',
-  default: 'TO_DO',
+  default: Categories.TO_DO,
 })
 
 export const toDoState = atom<IToDo[]>({
@@ -20,8 +24,8 @@ export const toDoState = atom<IToDo[]>({
 
 export const toDoSelector = selector({
   key: 'toDoSelector',
-  get: ({get}) => { // get Fn: selector의 내부로 atom을 가지고 올 수 있음
-    const toDos = get(toDoState); // toDos에 모든 todo가 할당
+  get: ({get}) => {
+    const toDos = get(toDoState);
     const category = get(categoryState);
     return toDos.filter((toDo) => toDo.category === category);
   }
