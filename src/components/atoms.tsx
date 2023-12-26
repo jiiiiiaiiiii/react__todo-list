@@ -8,6 +8,11 @@ export interface IToDo {
   category: 'TO_DO'|'DOING'|'DONE';
 }
 
+export const categoryState = atom({
+  key: 'category',
+  default: 'TO_DO',
+})
+
 export const toDoState = atom<IToDo[]>({
   key: 'toDo',
   default: [],
@@ -17,10 +22,7 @@ export const toDoSelector = selector({
   key: 'toDoSelector',
   get: ({get}) => { // get Fn: selector의 내부로 atom을 가지고 올 수 있음
     const toDos = get(toDoState); // toDos에 모든 todo가 할당
-    return [
-      toDos.filter(toDo => toDo.category === 'TO_DO'),
-      toDos.filter(toDo => toDo.category === 'DOING'),
-      toDos.filter(toDo => toDo.category === 'DONE'),
-    ];
+    const category = get(categoryState);
+    return toDos.filter((toDo) => toDo.category === category);
   }
 })
