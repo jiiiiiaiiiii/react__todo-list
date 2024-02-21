@@ -1,14 +1,21 @@
-import { useSetRecoilState } from 'recoil';
-import { Categories, IToDo, toDoState } from './atoms';
+// ✨ 카테고리별 할일 목록
+
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import {
+  IToDo,
+  toDoState,
+  currCategoryState,
+  categoryListState,
+} from '../atoms';
 
 function ToDo({ text, id, category }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
-  const changeCategory = (newCategory: IToDo['category']) => { // IToDo의 category 인터페이스를 가져옴
+  const currCategory = useRecoilValue(currCategoryState);
+  const categories = useRecoilValue(categoryListState);
+  const changeCategory = (newCategory: IToDo['category']) => {
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      const oldToDo = oldToDos[targetIndex];
       const newToDo = { text, id, category: newCategory };
-      // console.log(oldToDo, newToDo);
 
       return [
         ...oldToDos.slice(0, targetIndex),
@@ -21,21 +28,28 @@ function ToDo({ text, id, category }: IToDo) {
   const deleteToDo = () => {
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      return [...oldToDos.slice(0, targetIndex), ...oldToDos.slice(targetIndex + 1)]
-    })
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+    });
   };
 
   return (
     <li>
       <span>{text} </span>
-      {category !== Categories.DOING && (
-        <button onClick={() => changeCategory(Categories.DOING)}>Doing</button>
-      )}
-      {category !== Categories.TO_DO && (
-        <button onClick={() => changeCategory(Categories.TO_DO)}>To Do</button>
-      )}
-      {category !== Categories.DONE && (
-        <button onClick={() => changeCategory(Categories.DONE)}>Done</button>
+      {categories.map(
+        (category) =>
+          category !== currCategory && (
+            <button
+              key={category}
+              onClick={() => {
+                changeCategory(category);
+              }}
+            >
+              {category}
+            </button>
+          )
       )}
       <button onClick={deleteToDo}>Del</button>
     </li>

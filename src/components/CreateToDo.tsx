@@ -1,6 +1,8 @@
+// ✨ 할일 목록(To do list) 추가
+
 import { useForm } from 'react-hook-form';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { categoryState, toDoState } from './atoms';
+import { currCategoryState, toDoState } from '../atoms';
 
 interface IForm {
   toDo: string;
@@ -8,21 +10,21 @@ interface IForm {
 
 function CreateToDo() {
 	const setToDos = useSetRecoilState(toDoState);
-  const currCategory = useRecoilValue(categoryState);
+  const currCategory = useRecoilValue(currCategoryState);
 	const { register, handleSubmit, setValue } = useForm<IForm>();
-	const handleValid = ({toDo}: IForm) => {
+	const addToDo = ({toDo}: IForm) => {
     setToDos((oldToDos) => [{text: toDo, id:Date.now(), category: currCategory }, ...oldToDos]);
 		setValue('toDo', '');	// input 초기화
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleValid)}>
+      <form onSubmit={handleSubmit(addToDo)}>
         <input
           {...register('toDo', {
-            required: 'Please write a To Do!',
+            required: true,
           })}
-          placeholder='Write a to do'
+          placeholder='Please write a To Do...!'
         />
         <button>Add</button>
       </form>
