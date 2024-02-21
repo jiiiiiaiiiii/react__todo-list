@@ -4,7 +4,7 @@ import CreateToDo from './CreateToDo';
 import ToDo from './ToDo';
 
 function ToDoList() {
-  const toDos = useRecoilValue(toDoSelector);
+  const toDos = useRecoilValue(toDoSelector); // selector로 필터링된 값
   const [category, setCategory] = useRecoilState(categoryState); 
   const onInput = (e:React.FormEvent<HTMLSelectElement>) => {
     setCategory(e.currentTarget.value as any); // option의 value를 string으로만 인식 -> as any 추가
