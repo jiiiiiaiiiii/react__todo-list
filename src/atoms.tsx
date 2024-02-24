@@ -1,7 +1,12 @@
 import { atom, selector } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
 
-const {persistAtom} = recoilPersist();
+
+
+const { persistAtom } = recoilPersist({
+  key: 'sessionStorage',
+  storage: sessionStorage,
+  })
 
 export interface IToDo {
   text: string;
