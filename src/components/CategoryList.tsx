@@ -8,15 +8,18 @@ import AddCategoryModal from './AddCategoryModal';
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  padding: 30px;
   button {
-    color: whitesmoke;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    max-width: 150px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border: none;
-    border-radius: 15px;
-    margin: 25px 15px;
-    font-size: 30px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.15);
+    font-size: 24px;
     &:hover {
       transform: translateY(-5px);
     }
@@ -28,15 +31,26 @@ const Categories = styled.li`
 `;
 
 const CategoryBtn = styled.button<{ isActive: boolean }>`
-  background-color: ${(props) =>
+  background: none;
+  font-weight: ${(props) => props.isActive ? 'bold' : 'none'};
+  /* text-decoration: wavy; */
+  color: ${(props) =>
     props.isActive ? props.theme.clickTabColor : props.theme.tabColor};
   &:hover {
-    background-color: ${(props) => props.theme.clickTabColor};
+    color: ${(props) => props.theme.clickTabColor};
+    
   }
 `;
 
 const AddBtn = styled.button`
-  width: 150px;
+  width: 100px;
+  height: 60px;
+  line-height: 24px;
+  margin-right: 15px;
+  border-radius: 15px;
+  color: whitesmoke;
+  font-size: 22px;
+  box-shadow: 4px 5px 5px rgba(0, 0, 0, 0.2);
   background-color: ${(props) => props.theme.tabColor};
   &:hover {
     background-color: ${(props) => props.theme.clickTabColor};
@@ -53,6 +67,7 @@ export default function CategoryList() {
 
   return (
     <Wrapper>
+      <AddBtn onClick={openModal}>New</AddBtn>
       {categories.map((category) => (
         <Categories>
           <CategoryBtn
@@ -65,7 +80,6 @@ export default function CategoryList() {
           </CategoryBtn>
         </Categories>
       ))}
-      <AddBtn onClick={openModal}>+</AddBtn>
       <AddCategoryModal />
     </Wrapper>
   );

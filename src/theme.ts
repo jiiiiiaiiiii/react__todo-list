@@ -1,10 +1,10 @@
 import { DefaultTheme } from "styled-components";
 
 export const globalTheme: DefaultTheme = {
-  bgColor: "#edeeef",
+  bgColor: "#EFEFEF",
   textColor: "#94969c",
-  tabColor: "#9c9b9d",
+  tabColor: "#515C7C",
   clickTabColor: "#42423e",
-  accentColor: "#42423e",
+  accentColor: "#D74848",
   etcColor: "#cdcece"
 };

@@ -10,18 +10,24 @@ const Form = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   position: absolute;
   top: 300px;
   height: 150px;
   width: 700px;
+  padding: 30px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.25), 0 10px 20px rgba(0, 0, 0, 0.2);
+  button {
+    border-radius: 10px;
+  }
 `;
 
 const Input = styled.input`
-  margin: 25px 15px;
-  font-size: 30px;
+  width: 70%;
+  margin-right: 10px;
+  font-size: 24px;
   padding: 20px;
   border: 1px solid ${(props) => props.theme.etcColor};
   border-radius: 10px;
@@ -29,9 +35,10 @@ const Input = styled.input`
 `;
 
 const AddBtn = styled.button`
-  background-color: ${(props) => props.theme.accentColor};
+  color: whitesmoke;
+  background-color: ${(props) => props.theme.clickTabColor};
   &:hover {
-    background-color: ${(props) => props.theme.etcColor};
+    background-color: ${(props) => props.theme.tabColor};
   }
 `;
 

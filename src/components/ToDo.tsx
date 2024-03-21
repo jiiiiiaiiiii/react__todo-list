@@ -10,25 +10,33 @@ import {
 } from '../atoms';
 
 const ToDoList = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  display: block;
   list-style: none;
-  font-size: 25px;
-  margin:  30px;
+  font-size: 22px;
+  margin: 20px;
   text-align: left;
   &:not(:first-child) {
-    border-top: 2px dashed ${props => props.theme.etcColor};
-    padding-top: 30px;
+    border-top: 2px dashed ${(props) => props.theme.etcColor};
+    padding-top: 20px;
+  }
+`;
+
+const BtnContainer = styled.div`
+  button {
+    margin-left: 8px;
   }
 `;
 
 const CategoryBtn = styled.button`
-  margin-right: 5px;
   border: none;
   border-radius: 5px;
+  border: 1px solid #cfd0d4;
   background-color: ${(props) => props.theme.bgColor};
   &:hover {
-    background-color: ${(props) => props.theme.tabColor};
+    background-color: #c2c3c5;
   }
 `;
 
@@ -71,20 +79,22 @@ function ToDo({ text, id, category }: IToDo) {
   return (
     <ToDoList>
       <span>{text}</span>
-      {categories.map(
-        (category) =>
-          category !== currCategory && (
-            <CategoryBtn
-              key={category}
-              onClick={() => {
-                changeCategory(category);
-              }}
-            >
-              {category}
-            </CategoryBtn>
-          )
-      )}
-      <DeleteBtn onClick={deleteToDo}>X</DeleteBtn>
+      <BtnContainer>
+        {categories.map(
+          (category) =>
+            category !== currCategory && (
+              <CategoryBtn
+                key={category}
+                onClick={() => {
+                  changeCategory(category);
+                }}
+              >
+                {category}
+              </CategoryBtn>
+            )
+        )}
+        <DeleteBtn onClick={deleteToDo}>X</DeleteBtn>
+      </BtnContainer>
     </ToDoList>
   );
 }

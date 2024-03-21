@@ -16,13 +16,13 @@ export interface IToDo {
 
 export const categoryListState = atom<string[]>({
   key: 'categoryList',
-  default: ["TO_DO", "DOING", "DONE"],
+  default: ["TO-DO", "DOING", "DONE"],
   effects_UNSTABLE: [ persistAtom ],
 })
 
 export const currCategoryState = atom<string>({
   key: 'currCategory',
-  default: "TO_DO",
+  default: "TO-DO",
 })
 
 export const toDoState = atom<IToDo[]>({

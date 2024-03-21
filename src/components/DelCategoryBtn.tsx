@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { categoryListState, currCategoryState, toDoState } from '../atoms';
 
 const DelBtn = styled.button`
-  margin-top: 20px;
+  margin-top: 30px;
   border: none;
   display: inline-block;
   font-size: 25px;
@@ -13,7 +13,7 @@ const DelBtn = styled.button`
   color: ${(props) => props.theme.textColor};
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.1);
   &:hover {
-    color: ${(props) => props.theme.accentColor};
+    color: ${(props) => props.theme.clickTabColor};
   }
 `;
 
