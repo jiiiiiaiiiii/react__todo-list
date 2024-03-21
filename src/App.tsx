@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import Main from './components/Main';
+import GitHub from './components/GitHub';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
@@ -71,6 +72,7 @@ function App() {
     <>
       <GlobalStyle />
       <Main />
+      <GitHub />
     </>
   );
 }
